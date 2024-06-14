@@ -1,0 +1,11 @@
+.header__profile-img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.header__profile-img:hover {
+    border: 2px solid var(--Orange);
+}

@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
+.hero__text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+.hero__title{
+    text-transform: uppercase;
+    background-image: linear-gradient(to right bottom, #794622, #c07138, #FB8129, #ba6224f1, #ff6f0f63);
+    background-clip: text;
+    color: transparent;
+    font-size: 7rem;
+    white-space: nowrap;
+    z-index: 1;
+    margin: 10rem 0 0 2rem; 
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0.1rem;
+    display: inline-block;
+    transform: scaleY(1.5);
+    font-family: 'Kumbh Sans', sans-serif;
+}
+.hero__content{
+    margin: 0 0 0 2rem;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--White);
+    font-style: normal;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+.hero__span{
+    color: var(--Orange);
+    font-weight: 700;
+    font-size: 30px;
+    font-style: normal;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+.hero__btn{
+    margin: 2rem 0;
+    padding: 20px 40px;
+    background: transparent;
+    border: 1px solid var(--White);
+    color: var(--White);
+    border-radius: 4px;
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 15px;
+}

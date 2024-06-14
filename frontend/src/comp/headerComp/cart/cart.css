@@ -1,0 +1,21 @@
+.header__cart-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.extra__cart {
+    position: absolute;
+}
+
+.extra__cart-span {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    background-color: var(--Orange);
+    padding: 2px 8px;
+    border-radius: 7px;
+    top: -18px;
+    left: 60px;
+}
