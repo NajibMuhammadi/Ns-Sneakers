@@ -10,12 +10,12 @@
 
 .extra__cart-span {
     position: absolute;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
-    color: white;
+    color: rgb(71, 39, 39);
     background-color: var(--Orange);
     padding: 2px 8px;
     border-radius: 7px;
     top: -18px;
-    left: 60px;
+    left: 21rem;
 }

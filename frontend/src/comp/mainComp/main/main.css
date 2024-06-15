@@ -1,6 +1,10 @@
 .main__hero-section{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh;
+    min-height: 100vh;
     background-image: linear-gradient(to bottom right, #21242c, #171717, #21242cfa);
 }
+.main__Wave{
+    min-height: 100vh;
+}
+

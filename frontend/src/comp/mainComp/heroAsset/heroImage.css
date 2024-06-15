@@ -1,8 +1,8 @@
 .hero__image-container{
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    right: 2%;
+    position: relative;
+    width: 100%;
 }.hero__image{
+    position: absolute;
+    right: 10%;
     height: 100%;
 }
