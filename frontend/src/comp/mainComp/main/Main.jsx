@@ -1,6 +1,7 @@
 import HeroImage from '../heroAsset/HeroImage';
 import HeroTitle from '../heroTitle/HeroTitle';
 import NewsLetter from '../newsletter/NewsLetter';
+import Popular from '../popular/Popular';
 
 import Wave from '../wave/Wave';
 import './main.css';
@@ -13,7 +14,8 @@ function Main() {
         <HeroImage/>      
       </div>
       <Wave />
-      <NewsLetter/>
+      <Popular />
+      <NewsLetter />
     </div>
     
       
