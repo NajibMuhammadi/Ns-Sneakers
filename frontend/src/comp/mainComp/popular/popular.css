@@ -5,8 +5,6 @@
     margin: 0 auto;
 }
 .popular__product-container{
-    display: flex;
-    flex-direction: row;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1.5rem;
@@ -20,18 +18,46 @@
     background-size: cover;
     background-repeat: no-repeat;
     height:400px;
+    border-radius: 0.5rem;
 }
 .product__bigCard-desc{
     padding: 1rem;
-    background-color: #e9ecef;
+    background-color: #e9ecef8e;
     border-radius: 0.5rem;
+}
+.product__bigCard-title,
+.product__smallCard-title{
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+.product__bigCard-text{
+    color: rgb(71, 71, 71);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+.product__bigCard-price,
+.product__smallCard-price
+{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--Black);
+    margin: 1rem 0;
 }
 .product__smallCard{
     background-color: #e9ecefaf;
+    border-radius: 0.5rem;
 }
 .product__smallCard-img{
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 200px;
+    object-fit: scale-down;
     background-color: #f7f7f7;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+.product__smallCard-desc{
+    padding: 1rem;
+}
+.product__smallCard-price{
+    margin: .5rem 0 0 0 ;
 }

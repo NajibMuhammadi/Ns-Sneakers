@@ -22,6 +22,7 @@
 }
 .newsletter__input-container{
     display: flex;
+    width: 65%;
 }
 .newsletter__input{
     width: 100%;
@@ -32,7 +33,7 @@
     background-color: var(--Lightgrayishblue);
 }
 .newsletter__btn{
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     border: none;
     outline: none;
     background-color: var(--Orange);
