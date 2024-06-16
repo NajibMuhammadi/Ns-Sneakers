@@ -5,7 +5,7 @@
 }
 
 .newsletter__img{
-    width: 30%;
+    width: 40%;
 }
 .newsletter__form{
     width: 40%;
@@ -36,7 +36,7 @@
     border: none;
     outline: none;
     background-color: var(--Orange);
-    color: var(--White);
+    color: var(--Black);
     border-radius: 0 .5rem .5rem 0;
     cursor: pointer;
 }

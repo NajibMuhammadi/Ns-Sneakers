@@ -23,6 +23,6 @@
 }
 .highlight__image{
     width: 200px;
-    background-color: var(--Grayishblue);
+    background-color: #f8f9fa;
     border-radius: .5rem 5rem 0 1rem;
 }
