@@ -1,0 +1,18 @@
+.product__small-img {
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.product__small-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.active {
+    outline: 2px solid var(--Orange);
+    opacity: .5;
+}

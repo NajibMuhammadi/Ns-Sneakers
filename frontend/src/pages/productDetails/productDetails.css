@@ -1,0 +1,12 @@
+.product__details-wrapper{
+    width: 80%;
+    margin: 0 auto;
+}
+.product__details-main{
+    padding: 92px 52px 30px;
+}
+.prodcut__details-content{
+    display: grid;
+    grid-template-columns: 1fr  1fr;
+    gap: 6rem;
+}

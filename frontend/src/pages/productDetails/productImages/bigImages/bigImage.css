@@ -1,0 +1,10 @@
+.product__large-img {
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.product__large-image {
+    min-width: 400px;
+}

@@ -1,0 +1,56 @@
+.product__button-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 16px;
+}
+
+.product__button {
+    background-color: var(--Lightgrayishblue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    border-radius: 10px;
+}
+
+.product__button-minus,
+.product__button-plus {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--Orange);
+    font-size: 30px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.product__button-quantity {
+    font-size: 16px;
+    color: var(--Black);
+    font-weight: 700;
+
+}
+
+.product__button-add {
+    grid-column: 2/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border: none;
+    border-radius: 10px;
+    color: var(--White);
+    background-color: var(--Orange);
+    cursor: pointer;
+}
+
+product__button-img {
+    color: white;
+}
+
+.product__button-text {
+    font-size: 16px;
+    font-weight: 700;
+}
