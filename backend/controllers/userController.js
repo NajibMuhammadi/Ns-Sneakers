@@ -1,6 +1,7 @@
 import { userDb } from "../models/userModels.js";
+import jwt from "jsonwebtoken";
 
-import userSchema from "../models/userModels.js";
+import {userSchema, loginSchema} from "../models/userModels.js";
 
 export default class UserController{
     registerUser = async (req, res) => {
@@ -81,6 +82,39 @@ export default class UserController{
             success: true,
             message: "User created",
             status: 201
+        })
+    }
+
+    
+    loginUser = async (req, res) => {
+        const { error } = loginSchema.validate(req.body);
+        const { userName, password } = req.body;
+
+        if (error) {
+            return res.status(400).json({
+                success: false,
+                message: error.details[0].message,
+                status: 400
+            })
+        }
+        const user = await userDb.findOne({ userName: userName, password: password });
+
+        if(!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Username or password is incorrect",
+                status: 400
+            })
+        }
+
+        const accessToken = jwt.sign(user, process.env.SECRET_KEY);
+        req.accessToken = accessToken;
+
+        res.status(200).json({
+            success: true,
+            message: "User logged in",
+            status: 200,
+            accessToken
         })
     }
 }
