@@ -1,0 +1,16 @@
+import nedb from 'nedb-promises';
+import Joi from 'joi';
+
+const userSchema = Joi.object({
+    firstName: Joi.string().alphanum().min(3).max(30).required(),
+    lastName: Joi.string().alphanum().min(3).max(30).required(),
+    userName: Joi.string().alphanum().min(3).max(30).required(),
+    password: Joi.string().min(6).required(),
+    validatePasssword: Joi.ref('password'),
+    email: Joi.string().email().required(),
+});
+export default userSchema;
+export const userDb = nedb.create({
+    filename: 'config/users.db',
+    autoload: true
+})
