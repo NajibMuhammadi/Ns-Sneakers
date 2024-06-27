@@ -13,7 +13,7 @@ export default class UserController{
         const users = await userDb.find();
 
         // kolla om användarens användarnamn redan finns
-        if (users.find(user => user.userName === userName.toLowerCase())) {
+        if (users.find(user => user.userName === userName)) {
             return res.status(400).json({
                 success: false,
                 message: "Username already exists",
@@ -65,12 +65,11 @@ export default class UserController{
 
         // skapa ett objekt med användarens data
         const newUserToDb = {
-            firstName: firstName,
-            lastName: lastName,
-            userName: userName.toLowerCase(),
-            password: password,
-            validatePasssword: validatePasssword,
-            email: email,
+            userName,
+            firstName,
+            lastName,
+            password,
+            email,
             userId: randomId
         }
 

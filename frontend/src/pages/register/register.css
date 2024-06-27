@@ -1,0 +1,130 @@
+.form__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.form__title {
+    font-size: 28px;
+    color: var(--Orange);
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.form__title::before,
+.form__title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: var(--Orange);
+}
+
+.form__title::before {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+}
+
+.form__title::after {
+    width: 18px;
+    height: 18px;
+    background-color: var(--Orange);
+}
+
+.form__message,
+.form__Signin {
+    color: rgba(88, 87, 87, 0.822);
+    font-size: 14px;
+}
+
+.form__flex {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.form__label {
+    position: relative;
+}
+
+.form__input {
+    margin-top: 15px;
+    width: 100%;
+    outline: none;
+    border-radius: 8px;
+    height: 45px;
+    border: 1.5px solid #ecedec;
+    background: transparent;
+    padding-left: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.form__input-span {
+    position: absolute;
+    top: 25px;
+    left: 15px;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.form__input:focus + .form__input-span,
+.form__input:valid + .form__input-span {
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    color: var(--Orange);
+    background-color: #ffffff;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.form__btn {
+    border: none;
+    outline: none;
+    background-color: royalblue;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.form__btn:hover {
+    background-color: rgb(56, 90, 194);
+}
+.form__Signin{
+    text-align: center;
+}
+@keyframes pulse {
+    from {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
