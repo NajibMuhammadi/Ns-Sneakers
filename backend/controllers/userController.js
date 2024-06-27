@@ -87,9 +87,14 @@ export default class UserController{
 
     
     loginUser = async (req, res) => {
-        const { error } = loginSchema.validate(req.body);
-        const { userName, password } = req.body;
 
+        // validera användarens data
+       const { error } = loginSchema.validate(req.body);
+
+        // destrukturera användarens data
+        const { userNameOrEmail, password, } = req.body;
+
+        // kolla om det finns några valideringsfel
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -97,8 +102,16 @@ export default class UserController{
                 status: 400
             })
         }
-        const user = await userDb.findOne({ userName: userName, password: password });
 
+        // hämta användaren från databasen med användarnamn och lösenord som matchar med användarens data
+        const user = await userDb.findOne({
+            $or: [
+                { userName: userNameOrEmail},
+                { email: userNameOrEmail},
+            ], password: password
+         });
+
+        // kolla om användaren inte finns
         if(!user) {
             return res.status(400).json({
                 success: false,
@@ -107,7 +120,17 @@ export default class UserController{
             })
         }
 
-        const accessToken = jwt.sign(user, process.env.SECRET_KEY);
+        // skapa en access token
+        const accessToken = jwt.sign({
+            name: user.userName,
+            email: user.email,
+            userId: user.userId,
+            firstName: user.firstName,
+            lastName: user.lastName,},
+            process.env.SECRET_KEY,
+            { expiresIn: '10m' });
+        
+        // skicka en respons till klienten/frontend
         req.accessToken = accessToken;
 
         res.status(200).json({
@@ -115,6 +138,34 @@ export default class UserController{
             message: "User logged in",
             status: 200,
             accessToken
+        })
+    }
+
+    checkAuthUser = (req, res, next) => {
+        // hämta token från headers
+        const token = req.headers.authorization;
+
+        // kolla om det finns någon token
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: "Access denied",
+                status: 401
+            })
+        }
+
+        // verifiera token
+        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+            if (err) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Token is not valid",
+                    status: 403
+                })
+            }
+            req.user = user;
+                
+            next();
         })
     }
 }

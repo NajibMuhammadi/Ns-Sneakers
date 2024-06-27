@@ -13,4 +13,12 @@ router.post('/login',
     controller.loginUser,
 );
 
+router.get('/posts', controller.checkAuthUser, (req, res) => {
+    res.json({
+        success: true,
+        message: 'Profile accessed successfully.',
+        user: req.user
+    });
+});
+
 export default router
