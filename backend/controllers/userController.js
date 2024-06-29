@@ -95,10 +95,10 @@ export default class UserController{
 
         // kolla om det finns några valideringsfel
         if (error) {
-            return res.status(400).json({
+            return res.status(403).json({
                 success: false,
                 message: error.details[0].message,
-                status: 400
+                status: 403
             })
         }
 
@@ -124,13 +124,11 @@ export default class UserController{
             name: user.userName,
             email: user.email,
             userId: user.userId,
+            _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,},
             process.env.SECRET_KEY,
             { expiresIn: '10m' });
-        
-        // skicka en respons till klienten/frontend
-        req.accessToken = accessToken;
 
         res.status(200).json({
             success: true,
@@ -142,16 +140,14 @@ export default class UserController{
 
     checkAuthUser = (req, res, next) => {
         // hämta token från headers
-        const token = req.headers.authorization;
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
 
-        // kolla om det finns någon token
-        if (!token) {
-            return res.status(401).json({
-                success: false,
-                message: "Access denied",
-                status: 401
-            })
-        }
+        if (!token) return res.status(401).json({
+            success: false,
+            message: "Access token not found",
+            status: 401
+        });
 
         // verifiera token
         jwt.verify(token, process.env.SECRET_KEY, (err, user) => {

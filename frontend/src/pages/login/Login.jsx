@@ -17,6 +17,8 @@ function Login() {
             console.log(res.data)
             setUsernameOrEmail('');
             setPassword('');
+        }).catch(err => {
+            console.log(err.response.data);
         });
     }
     return (
@@ -32,7 +34,7 @@ function Login() {
                     onChange={(e) => setUsernameOrEmail(e.target.value)}
                     required
                 />
-                <span className='form__input-span'>Username</span>
+                <span className='form__input-span'>Username or Email</span>
             </label>
             <label className='form__label'>
                 <input
