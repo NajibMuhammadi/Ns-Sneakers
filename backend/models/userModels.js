@@ -3,13 +3,30 @@ import Joi from 'joi';
 
 const userSchema = Joi.object({
     firstName: Joi.string().alphanum().min(3).max(30).required().messages({
-        'string.empty': 'firstname is not allowed to be empty'
+        'string.empty': 'firstname is not allowed to be empty',
+        'any.required': 'firstname is required'
     }),
-    lastName: Joi.string().alphanum().min(3).max(30).required(),
-    userName: Joi.string().alphanum().min(3).max(30).required(),
-    password: Joi.string().min(6).required(),
-    validatePasssword: Joi.ref('password'),
-    email: Joi.string().email().required(),
+    lastName: Joi.string().alphanum().min(3).max(30).required().messages({
+        'string.empty': 'lastname is not allowed to be empty',
+        'any.required': 'lastname is required'
+    }),
+    userName: Joi.string().alphanum().min(3).max(30).required().messages({
+        'string.empty': 'username is not allowed to be empty',
+        'any.required': 'username is required'
+    }),
+    email: Joi.string().email().required().messages({
+        'string.empty': 'email is not allowed to be empty',
+        'string.email': 'email must be a valid email address',
+        'any.required': 'email is required'
+    }),
+    password: Joi.string().min(6).required().messages({
+        'string.empty': 'password is not allowed to be empty',
+        'any.required': 'password is required'
+    }),
+    validatePasssword: Joi.string().min(6).required().messages({
+        'string.empty': 'Confirm password is not allowed to be empty',
+        'any.required': 'Confirm password is required'
+    }),
 });
 
 const loginSchema = Joi.object({

@@ -47,10 +47,10 @@ export default class UserController{
         
         // kolla om det finns några valideringsfel
         if (error) {
-            return res.status(400).json({
+            return res.status(403).json({
                 success: false,
                 message: error.details[0].message,
-                status: 400
+                status: 403
             })
         }
 
