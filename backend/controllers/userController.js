@@ -121,14 +121,15 @@ export default class UserController{
 
         // skapa en access token
         const accessToken = jwt.sign({
-            name: user.userName,
-            email: user.email,
-            userId: user.userId,
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,},
+            userName: user.userName,
+            userId: user.userId},
             process.env.SECRET_KEY,
             { expiresIn: '10m' });
+        
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            samSite: 'strict'
+        });
 
         res.status(200).json({
             success: true,
@@ -136,21 +137,20 @@ export default class UserController{
             status: 200,
             accessToken
         })
+        
     }
 
     checkAuthUser = (req, res, next) => {
-        // hämta token från headers
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
+        const accessToken = req.cookies.token; 
 
-        if (!token) return res.status(401).json({
+        if (!accessToken) return res.status(401).json({
             success: false,
             message: "Access token not found",
             status: 401
         });
 
         // verifiera token
-        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+        jwt.verify(accessToken, process.env.SECRET_KEY, (err, user) => {
             if (err) {
                 return res.status(403).json({
                     success: false,
@@ -158,8 +158,9 @@ export default class UserController{
                     status: 403
                 })
             }
+            
+            delete user.password;
             req.user = user;
-                
             next();
         })
     }
