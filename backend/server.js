@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 import userLoginRoute from './routes/userLoginRoute.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 const PORT = process.env.PORT || 8085;
@@ -21,3 +22,5 @@ app.use('/ns-sneakers', userLoginRoute);
 app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);
 });
+
+app.use(errorHandler);

@@ -2,13 +2,15 @@ import nedb from 'nedb-promises';
 import Joi from 'joi';
 
 const userSchema = Joi.object({
-    firstName: Joi.string().alphanum().min(3).max(30).required().messages({
+    firstName: Joi.string().pattern(new RegExp('^[a-zA-Z]+$')).alphanum().min(3).max(30).required().messages({
         'string.empty': 'firstname is not allowed to be empty',
-        'any.required': 'firstname is required'
+        'any.required': 'firstname is required',
+        'string.pattern.base': 'firstname must only contain letters'
     }),
-    lastName: Joi.string().alphanum().min(3).max(30).required().messages({
+    lastName: Joi.string().pattern(new RegExp('^[a-zA-Z]+$')).alphanum().min(3).max(30).required().messages({
         'string.empty': 'lastname is not allowed to be empty',
-        'any.required': 'lastname is required'
+        'any.required': 'lastname is required',
+        'string.pattern.base': 'lastname must only contain letters'
     }),
     userName: Joi.string().alphanum().min(3).max(30).required().messages({
         'string.empty': 'username is not allowed to be empty',
@@ -23,10 +25,10 @@ const userSchema = Joi.object({
         'string.empty': 'password is not allowed to be empty',
         'any.required': 'password is required'
     }),
-    validatePasssword: Joi.string().min(6).required().messages({
+    confirmPassword: Joi.string().min(6).required().messages({
         'string.empty': 'Confirm password is not allowed to be empty',
         'any.required': 'Confirm password is required'
-    }),
+    })
 });
 
 const loginSchema = Joi.object({
@@ -44,3 +46,7 @@ export const userDb = nedb.create({
     filename: 'config/users.db',
     autoload: true
 })
+
+process.on('exit', () => {
+    userDb.close();
+});

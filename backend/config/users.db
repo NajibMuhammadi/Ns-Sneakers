@@ -1,12 +1,3 @@
-{"userName":"suqaina03","firstName":"Suqaina","lastName":"Gulam","password":"abcde123","email":"suq@gmail.com","userId":"2JFHB","_id":"10fteUSLfuaKXaQs"}
-{"firstName":"Firstname","lastName":"lastName","userName":"username22","password":"password","validatePasssword":"password","email":"najib22@gmail.com","userId":"Q5G35","_id":"7BH0RskXxD7HGRhz"}
-{"userName":"johan22","firstName":"johan","lastName":"johan","password":"abcde123","email":"johan22@gmail.com","userId":"G04FB","_id":"BXzMso9pp2OAJzUc"}
-{"userName":"najib22","firstName":"najib","lastName":"muhammadi","password":"abcde123","email":"najib223@gmail.com","userId":"XKGGI","_id":"Kc9jvDJwtSqTpY2d"}
-{"userName":"najib11","firstName":"najib","lastName":"muhammadi","password":"abcde123","email":"najib11@gmail.com","userId":"B9PVT","_id":"MYqevU2YwInPr3Qu"}
-{"userName":"najib132","firstName":"Najib","lastName":"Muhammadi","password":"abcde123","email":"najib123@gmail.com","_id":"PjzzKpVvWplYz8z1"}
-{"userName":"dasdads","firstName":"dasdads","lastName":"adsadsad","password":"abcde123","email":"najib033@gmail.com","userId":"JZFSB","_id":"S5U6DjdWj7QMxcli"}
-{"userName":"test1","firstName":"MEowww","lastName":"firstName","password":"abcde123","email":"email@meo.com","userId":"CV3IC","_id":"YHxKcaxrBZuG7BSD"}
-{"firstName":"Firstname","lastName":"lastName","userName":"username12","password":"password","validatePasssword":"password","email":"najib1@gmail.com","userId":"R5Z2D","_id":"gEUUZV7sepZQgZll"}
-{"firstName":"Firstname","lastName":"lastName","userName":"username","password":"password","validatePasssword":"password","email":"najib@gmail.com","userId":"JXK3E","_id":"iZJk5tBa3eAhE0ur"}
-{"firstName":"Firstname","lastName":"lastName","userName":"username122","password":"password","validatePasssword":"password","email":"najib122@gmail.com","userId":"6CC3G","_id":"lToN8zII48vr34X1"}
-{"userName":"najib03","firstName":"Najib","lastName":"Muhammadi","password":"abcde123","email":"najib03@gmail.com","userId":"GY0CC","_id":"luuvf0k1u9EZ9RXM"}
+{"userName":"najib","firstName":"najib","lastName":"muhammadi","password":"abcde123","email":"najib@gmail.com","userId":"9N9RC","_id":"e3mGWOKXYAE2zySg","isAdmin":false}
+{"userName":"suqaina","firstName":"suqaina","lastName":"muhammadi","password":"abcde123","email":"suqaina@gmail.com","userId":"AWM51","_id":"exrBSYTlJDq0PRNm","isAdmin":true}
+{"userName":"najib03","firstName":"najib","lastName":"muhammadi","password":"abcde123","email":"najib03@gmail.com","userId":"5ZX7M","_id":"zMHteznQmlNBb7ck","isAdmin":true}

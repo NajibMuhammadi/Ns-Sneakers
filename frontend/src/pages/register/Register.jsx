@@ -8,7 +8,7 @@ function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [validatePasssword, setValidatePassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
 
@@ -20,7 +20,7 @@ function Register() {
         username: false,
         email: false, 
         password: false,
-        validatePassword: false
+        confirmPassword: false
     })
 
     const shakeContainer = () => {
@@ -30,7 +30,7 @@ function Register() {
             username: false,
             email: false,
             password: false,
-            validatePassword: false
+            confirmPassword: false
         })
 
     }
@@ -44,7 +44,7 @@ function Register() {
             userName: username,
             email: email,
             password: password,
-            validatePasssword: validatePasssword,
+            confirmPassword: confirmPassword,
             firstName: firstname,
             lastName: lastname
         }).then(res => {
@@ -52,7 +52,7 @@ function Register() {
             setUsername('');
             setEmail('');
             setPassword('');
-            setValidatePassword('');
+            setConfirmPassword('');
             setFirstname('');
             setLastname('');
         })
@@ -72,14 +72,14 @@ function Register() {
                 setShakes({...shakes, email: true})
             } else if (errorMessage.includes('password')) {
                 setShakes({...shakes, password: true})
-            } else if (errorMessage.includes('validatePassword')) {
-                setShakes({...shakes, validatePassword: true})
+            } else if (errorMessage.includes('confirmPassword')) {
+                setShakes({...shakes, confirmPassword: true})
             } else if (errorMessage.includes('Username already exists')) {
                 setShakes({...shakes, username: true})
             } else if (errorMessage.includes('Email already exists')) {
                 setShakes({...shakes, email: true})
             } else if (errorMessage.includes('Passwords do not match')) {
-                setShakes({...shakes, password: true, validatePassword: true})
+                setShakes({...shakes, password: true, confirmPassword: true})
             }
         });
 
@@ -108,9 +108,9 @@ function Register() {
             setPassword(value);
             setShakes({...shakes, password: false})
         }
-        else if (name === 'validatePassword') {
-            setValidatePassword(value);
-            setShakes({...shakes, validatePassword: false})
+        else if (name === 'confirmPassword') {
+            setConfirmPassword(value);
+            setShakes({...shakes, confirmPassword: false})
         }
     }
 
@@ -164,22 +164,22 @@ function Register() {
                     <span className='form__input-span'>Email</span>
                 </label>
                 <label className='form__label'>
-                    <input
+                    { <input
                         className={`form__input ${shakes.password ? 'shake' : ''}`}
                         type='password' placeholder=''
                         value={password}
                         name='password'
                         onChange={handleInputChange}
-                    />
+                    /> }
                     <span className='form__input-span'>Password</span>
                 </label>
                 <label className='form__label'>
                     <input
-                        className={`form__input ${shakes.validatePassword ? 'shake' : ''}`}
+                        className={`form__input ${shakes.confirmPassword ? 'shake' : ''}`}
                         type='password'
                         placeholder=''
-                        value={validatePasssword} 
-                        name='validatePassword'
+                        value={confirmPassword} 
+                        name='confirmPassword'
                         onChange={handleInputChange}
                     />
                     <span className='form__input-span'>Confirm Password</span>
