@@ -1,12 +1,13 @@
 import { userDb } from "../models/userModels.js";
 import jwt from "jsonwebtoken";
 
-import {userSchema, loginSchema} from "../models/userModels.js";
+import { userSchema, loginSchema } from "../models/userModels.js";
+
 
 const validationError = new Error();
 
 export default class UserController{
-    registerUser = async (req, res) => {
+    registerUser = async (req, res, next) => {
 
         // destrukturera användarens data
         const { userName, firstName, lastName, password, confirmPassword, email } = req.body;
@@ -19,7 +20,7 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "Username already exists";
             validationError.status = 400;
-            next(validationError);
+            return next(validationError);
             
         }
 
@@ -28,7 +29,7 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "Email already exists";
             validationError.status = 400;
-            next(validationError);
+            return next(validationError);
         }
 
         // skapa en random userId och ta bort 0. från början av numret och konvertera till stora bokstäver
@@ -51,7 +52,7 @@ export default class UserController{
             validationError.success = false;
             validationError.message = error.details[0].message;
             validationError.status = 400;
-            next(validationError);
+            return next(validationError);
         }
 
         // kolla om lösenorden matchar med varandra
@@ -59,7 +60,7 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "Passwords do not match";
             validationError.status = 400;
-            next(validationError);
+            return next(validationError);
         } 
 
         // skapa ett objekt med användarens data
@@ -84,7 +85,7 @@ export default class UserController{
     }
 
     
-    loginUser = async (req, res) => {
+    loginUser = async (req, res, next) => {
 
         // validera användarens data
        const { error } = loginSchema.validate(req.body);
@@ -97,7 +98,7 @@ export default class UserController{
             validationError.success = false;  
             validationError.message = error.details[0].message;
             validationError.status = 400;
-            next(validationError);
+            return next(validationError);
         }
 
         // hämta användaren från databasen med användarnamn och lösenord som matchar med användarens data
@@ -109,10 +110,11 @@ export default class UserController{
          });
 
         // kolla om användaren inte finns
-        if(!user) {
+        if (!user) {
             validationError.success = false;
-            validationError.message = "User not found";
-            validationError.status = 404;
+            validationError.message = "Invalid username or password";
+            validationError.status = 400;
+            return next(validationError);
         }
 
         // skapa en access token
@@ -146,16 +148,16 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "Access token not found";
             validationError.status = 403;
-            next(validationError);
+            return next(validationError);
         };
 
         // verifiera token
         jwt.verify(accessToken, process.env.SECRET_KEY, async (err, decoded) => {
             if (err) {
                 validationError.success = false;
-                validationError.message = "Invalid access token";
+                validationError.message = "Invalid token";
                 validationError.status = 403;
-                next(validationError);
+                return next(validationError);
             }
             req.user = decoded;
             next();
@@ -167,12 +169,12 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "User is not admin";
             validationError.status = 403;
-            next(validationError);
+            return next(validationError);
         }
         next();
     }
 
-    insertAdminTrue = async (req, res) => {
+    insertAdminTrue = async (req, res, next) => {
         const userId = req.params.id;
 
         const user = await userDb.findOne({ userId });
@@ -181,7 +183,7 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "User not found";
             validationError.status = 404;
-            next(validationError);
+             return next(validationError);
         }
 
         // uppdatera användaren
@@ -195,7 +197,7 @@ export default class UserController{
       
     }
 
-    isertAdminFalse = async (req, res) => {
+    isertAdminFalse = async (req, res, next) => {
         const userId = req.params.id;
 
         const user = await userDb.findOne({ userId })
@@ -204,7 +206,7 @@ export default class UserController{
             validationError.success = false;
             validationError.message = "User not found";
             validationError.status = 404;
-            next(validationError);
+            return next(validationError);
         }
 
         userDb.update({ userId }, { $set: { isAdmin: false } });
