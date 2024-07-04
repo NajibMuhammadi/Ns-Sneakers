@@ -19,7 +19,6 @@ function Main() {
       <Popular />
       <NewsLetter />
       <Register />
-      <Login/>
     </div>
     
       

@@ -1,5 +1,7 @@
 import { userDb } from "../models/userModels.js";
 import jwt from "jsonwebtoken";
+import path from "path";
+const __dirname = path.resolve();
 
 import { userSchema, loginSchema } from "../models/userModels.js";
 
@@ -121,7 +123,8 @@ export default class UserController{
         const accessToken = jwt.sign({
             userName: user.userName,
             userId: user.userId,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            image: user.image
         },
             
             process.env.SECRET_KEY,
@@ -223,5 +226,15 @@ export default class UserController{
     getAllUsers = async (req, res) => {
         const users = await userDb.find();
         res.json(users);
+    }
+
+    getUserImage = async (req, res) => {
+        if (!req.user.image) {
+            return res.status(404).json({
+                success: false,
+                message: 'No image found'
+            });
+        }
+        res.sendfile('./config/usersImages/' + req.user.image); 
     }
 }

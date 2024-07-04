@@ -25,6 +25,9 @@ function Login() {
             console.log(res.data)
             setUsernameOrEmail('');
             setPassword('');
+            if(res.data.success) {
+                window.location.href = '/';
+            }
         }).catch(err => {
             console.log(err.response.data);
             setError(err.response.data);

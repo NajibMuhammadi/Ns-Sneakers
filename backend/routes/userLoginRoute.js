@@ -54,4 +54,5 @@ router.post('/upload', controller.checkAuthUser, upload.single('image'), async(r
     });
 });
 
+router.get('/profileImage', controller.checkAuthUser, controller.getUserImage);
 export default router
