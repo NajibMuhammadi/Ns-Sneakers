@@ -1,5 +1,3 @@
-import Login from '../../../pages/login/Login';
-import Register from '../../../pages/register/Register';
 import HeroImage from '../heroAsset/HeroImage';
 import HeroTitle from '../heroTitle/HeroTitle';
 import NewsLetter from '../newsletter/NewsLetter';
@@ -18,7 +16,6 @@ function Main() {
       <Wave />
       <Popular />
       <NewsLetter />
-      <Register />
     </div>
     
       

@@ -1,0 +1,7 @@
+.form__Signin-link{
+    color: var(--Orange);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 5px;
+}   

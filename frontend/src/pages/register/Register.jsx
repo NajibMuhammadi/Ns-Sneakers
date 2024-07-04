@@ -1,6 +1,7 @@
 import './register.css';
+import { Link } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 
@@ -185,7 +186,7 @@ function Register() {
                     <span className='form__input-span'>Confirm Password</span>
                 </label>
                 <button className='form__btn'>Submit</button>
-                <p className='form__Signin'>Already have an account?</p>
+                <p className='form__Signin'>Already have an account? <Link className='form__Signin-link' to='/login'>Log in</Link></p>
             </form>
         </div>
     )

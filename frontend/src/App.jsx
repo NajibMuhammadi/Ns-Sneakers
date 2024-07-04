@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Collections from './pages/collections/Collections'
 import Footer from './comp/footerComp/footer/Footer'
 import Login from './pages/login/Login'
+import Register from './pages/register/Register'
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Collections />} />
-          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register/>}></Route>
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   )

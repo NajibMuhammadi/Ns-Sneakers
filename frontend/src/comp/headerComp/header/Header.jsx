@@ -6,6 +6,7 @@ import { PiLineVertical } from "react-icons/pi";
 
 import './header.css';
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; 
 
 function Header() { 
     const [userInput, setUserInput] = useState('');
@@ -41,6 +42,7 @@ function Header() {
                     />
                 </div> 
                 <Cart />
+                <Link to='/login' className='header__navItem-link'>Log in</Link>
                 <ProfileImg />
             </div>
         </div>

@@ -3,6 +3,8 @@ import './login.css';
 import { useState } from 'react';
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+
 function Login() {
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -80,7 +82,7 @@ function Login() {
                     <span className='form__input-span'>Password</span>
                 </label>
                 <button className='form__btn'>Submit</button>
-                <p className='form__Signin'>Already have an account?</p>
+                <p className='form__Signin'>Don't have an account? <Link className='form__Signin-link' to='/register'>Sign up</Link></p>
             </form>
         </div>
     )

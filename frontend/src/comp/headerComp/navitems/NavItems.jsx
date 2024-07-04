@@ -10,7 +10,6 @@ function NavItems() {
                 <Link to='/women' className='header__navItem-link'>Women</Link>
                 <Link to='/about' className='header__navItem-link'>About</Link>
                 <Link to='/contact' className='header__navItem-link'>Contact</Link>
-                <Link to='/login' className='header__navItem-link'>Log in</Link>
             </li>
         </ul>
     )
