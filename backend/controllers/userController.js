@@ -119,24 +119,27 @@ export default class UserController{
             return next(validationError);
         }
 
-        const firstLetterFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
-        const firstLetterLastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1);
-
-        // skapa en access token
+        // skapa en accessToken
         const accessToken = jwt.sign({
-            userName: user.userName,
             userId: user.userId,
             isAdmin: user.isAdmin,
-            image: user.image,
-            firstName: firstLetterFirstName,
-            lastName: firstLetterLastName
-        }, process.env.SECRET_KEY, { expiresIn: '10m' });
+            image: user.image
+        }, process.env.SECRET_KEY, { expiresIn: '10s' });
 
+        // skapa en refreshToken
         const refreshToken = jwt.sign({
-            userId: user.userId
-        }, process.env.REFRESH_SECRET_KEY, {expiresIn: '7d'});
-        
+            userId: user.userId,
+            isAdmin: user.isAdmin,
+            image: user.image
+        }, process.env.REFRESH_SECRET_KEY);
+
+        // skicka accessToken och refreshToken till klienten/frontend
         res.cookie('token', accessToken, {
+            httpOnly: true,
+            samSite: 'strict' // cookie kan endast skickas över https och inte http
+        });
+
+        res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             samSite: 'strict' // cookie kan endast skickas över https och inte http
         });
@@ -152,26 +155,37 @@ export default class UserController{
     }
 
     checkAuthUser = (req, res, next) => {
-        const accessToken = req.cookies.token; 
+        const refreshToken = req.cookies.refreshToken;
 
-        if (!accessToken) {
+        if (!refreshToken) {
             validationError.success = false;
-            validationError.message = "Access token not found";
-            validationError.status = 403;
+            validationError.message = "No token found";
+            validationError.status = 401;
             return next(validationError);
-        };
+        }
 
-        // verifiera token
-        jwt.verify(accessToken, process.env.SECRET_KEY, async (err, decoded) => {
+        jwt.verify(refreshToken, process.env.REFRESH_SECRET_KEY, (err, decoded) => {
             if (err) {
                 validationError.success = false;
                 validationError.message = "Invalid token";
-                validationError.status = 403;
+                validationError.status = 401;
                 return next(validationError);
             }
+
+            const accessToken = jwt.sign({
+                userId: decoded.userId,
+                isAdmin: decoded.isAdmin,
+                image: decoded.image
+            }, process.env.SECRET_KEY, { expiresIn: '15m' });
+
+            res.cookie('token', accessToken, {
+                httpOnly: true,
+                samSite: 'strict' // cookie kan endast skickas över https och inte http
+            });
+
             req.user = decoded;
             next();
-        }); 
+        })
     }
 
     checkIsAdmin = async (req, res, next) => {
@@ -247,10 +261,33 @@ export default class UserController{
 
     logoutUser = (req, res) => {
         res.clearCookie('token');
+        res.clearCookie('refreshToken');
         res.status(200).json({
             success: true,
             message: "User logged out",
             status: 200
         })
     }
+
+    getUserDetails = async (req, res, next) => {
+        const userId = req.user.userId;
+
+        const user = await userDb.findOne({ userId })
+
+        if (!user) {
+            validationError.success = false;
+            validationError.message = "User not found";
+            validationError.status = 404;
+            return next(validationError);
+        }
+
+        user.firstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+        user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1);
+
+        res.status(200).json({
+            success: true,
+            message: "User found",
+            user
+        })
+    }   
 }

@@ -1,7 +1,5 @@
 import './userProfile.css';
 
-import userProfileImage from '../../assets/images/avatar.png';
-
 import {User, GreaterThan, Gear, SignIn, SignOut,} from "@phosphor-icons/react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -17,13 +15,23 @@ function UserProfile() {
         axios.get('http://localhost:8085/ns-sneakers/profile', {
             withCredentials: true
         }).then(res => {
-            setfirstname(res.data.user.firstName);
-            setLastname(res.data.user.lastName);
             setImg(res.data.user.image);
         }).catch(err => {
             console.log(err);
         });
     }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:8085/ns-sneakers/getuser', {
+            withCredentials: true
+        }).then(res => {
+            setfirstname(res.data.user.firstName);
+            setLastname(res.data.user.lastName);
+        }).catch(err => {
+            console.log(err);
+        });
+    }, []);
+    
     return (
         <div className='sub__menu-wrap'>
             <div className='sub__menu'>

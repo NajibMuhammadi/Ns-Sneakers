@@ -57,4 +57,5 @@ router.post('/upload', controller.checkAuthUser, upload.single('image'), async(r
 router.get('/profileImage', controller.checkAuthUser, controller.getUserImage);
 
 router.get('/logout', controller.logoutUser);
+router.get('/getuser', controller.checkAuthUser, controller.getUserDetails);
 export default router
