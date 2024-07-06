@@ -119,16 +119,22 @@ export default class UserController{
             return next(validationError);
         }
 
+        const firstLetterFirstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+        const firstLetterLastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1);
+
         // skapa en access token
         const accessToken = jwt.sign({
             userName: user.userName,
             userId: user.userId,
             isAdmin: user.isAdmin,
-            image: user.image
-        },
-            
-            process.env.SECRET_KEY,
-            { expiresIn: '10m' });
+            image: user.image,
+            firstName: firstLetterFirstName,
+            lastName: firstLetterLastName
+        }, process.env.SECRET_KEY, { expiresIn: '10m' });
+
+        const refreshToken = jwt.sign({
+            userId: user.userId
+        }, process.env.REFRESH_SECRET_KEY, {expiresIn: '7d'});
         
         res.cookie('token', accessToken, {
             httpOnly: true,
@@ -139,7 +145,8 @@ export default class UserController{
             success: true,
             message: "User logged in",
             status: 200,
-            accessToken
+            accessToken,
+            refreshToken
         })
         
     }

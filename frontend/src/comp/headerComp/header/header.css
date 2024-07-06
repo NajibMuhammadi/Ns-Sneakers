@@ -11,7 +11,7 @@
 .header__cart-container {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 .header__search-container{
     display: flex;
@@ -39,4 +39,13 @@
     font-size: 20px;
     color: gray;
     margin: 0 1rem;
+}
+.header__profile-btn{
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 10px;
+    color: var(--Black);
+    background-color: var(--Orange);
+    cursor: pointer;
+    margin-right: -10px;
 }
