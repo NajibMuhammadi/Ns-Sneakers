@@ -10,6 +10,7 @@ function UserProfile() {
     const [img, setImg] = useState(null);
     const [firstname, setfirstname] = useState('');
     const [Lastname, setLastname] = useState('');
+    const [firstnamefalse, setfirstnamefalse] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:8085/ns-sneakers/profile', {
@@ -27,6 +28,7 @@ function UserProfile() {
         }).then(res => {
             setfirstname(res.data.user.firstName);
             setLastname(res.data.user.lastName);
+            setfirstnamefalse(true);
         }).catch(err => {
             console.log(err);
         });
@@ -39,7 +41,11 @@ function UserProfile() {
                     {img ? (
                         <img className='user__image' src={`http://localhost:8085/ns-sneakers/profileimage/`} alt="användarens profilbild" />
                     ) : (<User size={32} className='user__image' />)}
-                    <h1 className='user__title'>{firstname} {Lastname}</h1>
+                    {firstnamefalse ? (
+                        <h1 className='user__title'>{firstname} {Lastname}</h1>
+                    ) : (
+                        <h1 className='user__title'>Log in to see more information</h1> 
+                    )}
                 </div>
                     <hr className='user__hr'/>
                     <Link to='/login' className='user__menu-link'>
