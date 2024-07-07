@@ -15,7 +15,7 @@
     max-height: 400px;
 }
 .sub__menu{
-    background: var(--Orange);
+    backdrop-filter: blur(10px);
     padding: 2rem;
 }
 
