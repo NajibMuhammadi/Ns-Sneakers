@@ -12,6 +12,7 @@ import axios from "axios";
 function Header() { 
     const [userInput, setUserInput] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => { 
         axios.get('http://localhost:8085/ns-sneakers/profile', {
             withCredentials: true
@@ -19,7 +20,12 @@ function Header() {
             setIsLoggedIn(true)
         }).catch(err => {
             console.log(err)
-        });
+        }).finally(() => {
+            setTimeout(() => {
+                setIsLoading(false)
+            }, 1000)
+        })
+        
     }), [userInput];
 
     const handleSearch = (e) => {
@@ -35,7 +41,7 @@ function Header() {
         axios.get('http://localhost:8085/ns-sneakers/logout', {
             withCredentials: true
         }).then(res => {
-            if(res.data.success) {
+            if (res.data.success) {
                 window.location.href = '/';
             }
         }).catch(err => {
@@ -45,6 +51,9 @@ function Header() {
 
     return (
         <div className="header">
+            {isLoading && <div className="loading__overlay">
+                <div className="loading__spinner"></div>
+            </div>}
             <Nav />
             <div className="header__cart-container">
                 <div className="header__search-container">
