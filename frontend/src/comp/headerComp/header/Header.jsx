@@ -80,7 +80,7 @@ function Header() {
                         <button className="header__profile-btn">Login</button>
                     </Link>
                 )}
-                <ProfileImg />
+                <ProfileImg isLoggedIn={isLoggedIn} />
             </div>
         </div>
     )

@@ -6,42 +6,36 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 
-function UserProfile() {
-    const [img, setImg] = useState(null);
+function UserProfile({isLoggedIn}) {
     const [firstname, setfirstname] = useState('');
     const [Lastname, setLastname] = useState('');
-    const [firstnamefalse, setfirstnamefalse] = useState(false);
-
+    const [imgUrl, setImgUrl] = useState(null);
     useEffect(() => {
-        axios.get('http://localhost:8085/ns-sneakers/profile', {
-            withCredentials: true
-        }).then(res => {
-            setImg(res.data.user.image);
-        }).catch(err => {
-            console.log(err);
-        });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:8085/ns-sneakers/getuser', {
-            withCredentials: true
-        }).then(res => {
-            setfirstname(res.data.user.firstName);
-            setLastname(res.data.user.lastName);
-            setfirstnamefalse(true);
-        }).catch(err => {
-            console.log(err);
-        });
-    }, []);
+        if(isLoggedIn) {
+            axios.get('http://localhost:8085/ns-sneakers/getuser', {
+                withCredentials: true
+            }).then(res => {
+                setfirstname(res.data.user.firstName)
+                setLastname(res.data.user.lastName)
+                const imageUrl = `http://localhost:8085/ns-sneakers/userImage/${res.data.user.image}`;
+                setImgUrl(imageUrl);
+                console.log(imageUrl)
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    }, [isLoggedIn]);
     
     return (
         <div className='sub__menu-wrap'>
             <div className='sub__menu'>
                 <div className='user__info'>
-                    {img ? (
-                        <img className='user__image' src={`http://localhost:8085/ns-sneakers/profileimage/`} alt="användarens profilbild" />
-                    ) : (<User size={32} className='user__image' />)}
-                    {firstnamefalse ? (
+                    {isLoggedIn ? (
+                        <img className='user__image' src={imgUrl} alt="användarens profilbild" />
+                    ) : (
+                        <User size={32} className='user__image' />    
+                    )}
+                    {isLoggedIn ? (
                         <h1 className='user__title'>{firstname} {Lastname}</h1>
                     ) : (
                         <h1 className='user__title'>Log in to see more information</h1> 

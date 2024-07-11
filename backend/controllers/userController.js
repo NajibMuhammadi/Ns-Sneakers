@@ -1,7 +1,5 @@
 import { userDb } from "../models/userModels.js";
 import jwt from "jsonwebtoken";
-import path from "path";
-const __dirname = path.resolve();
 
 import { userSchema, loginSchema } from "../models/userModels.js";
 
@@ -122,15 +120,13 @@ export default class UserController{
         // skapa en accessToken
         const accessToken = jwt.sign({
             userId: user.userId,
-            isAdmin: user.isAdmin,
-            image: user.image
+            isAdmin: user.isAdmin
         }, process.env.SECRET_KEY, { expiresIn: '10s' });
 
         // skapa en refreshToken
         const refreshToken = jwt.sign({
             userId: user.userId,
-            isAdmin: user.isAdmin,
-            image: user.image
+            isAdmin: user.isAdmin
         }, process.env.REFRESH_SECRET_KEY);
 
         // skicka accessToken och refreshToken till klienten/frontend
@@ -174,8 +170,7 @@ export default class UserController{
 
             const accessToken = jwt.sign({
                 userId: decoded.userId,
-                isAdmin: decoded.isAdmin,
-                image: decoded.image
+                isAdmin: decoded.isAdmin
             }, process.env.SECRET_KEY, { expiresIn: '15m' });
 
             res.cookie('token', accessToken, {
@@ -287,7 +282,8 @@ export default class UserController{
         res.status(200).json({
             success: true,
             message: "User found",
-            user
+            user,
+            userUrl: `http://localhost:8085/ns-sneakers/userImage/${user.image}`
         })
     }   
 }

@@ -4,20 +4,24 @@ import axios from 'axios';
 import { User } from "@phosphor-icons/react";
 import UserProfile from '../../../pages/userProfile/UserProfile';
 
-const ProfileImg = () => {
-  const [img, setImg] = useState(null);
+const ProfileImg = ({isLoggedIn}) => {
+  const [imgUrl, setImgUrl] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
   const profileRef = useRef(null);
   
   useEffect(() => {
-    axios.get('http://localhost:8085/ns-sneakers/profileimage', {
-      withCredentials: true
-    }).then(res => {
-      setImg(res.data);
-    }).catch(err => {
-      console.log(err);
-    });
-  }, []);
+    if (isLoggedIn) {
+      axios.get('http://localhost:8085/ns-sneakers/getuser', {
+        withCredentials: true
+      }).then(res => {
+        const imageUrl = `http://localhost:8085/ns-sneakers/userImage/${res.data.user.image}`;
+        setImgUrl(imageUrl);
+        console.log(imageUrl)
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+  }, [isLoggedIn]);
   
   const showProfileHandler = () => {
     setShowProfile(!showProfile);
@@ -38,12 +42,12 @@ const ProfileImg = () => {
   }, [showProfile]);
   return (
     <div className="profileImg" onClick={showProfileHandler} ref={profileRef}>
-       {img ? (
-        <img className='header__profile-img' src={`http://localhost:8085/ns-sneakers/profileimage/`} alt="profile" />
+       {isLoggedIn ? (
+        <img className='header__profile-img' src={imgUrl} alt="profile" />
       ) : (
           <User className='header__profile-img' />
       )}
-      {showProfile && <UserProfile />}
+      {showProfile && <UserProfile isLoggedIn={isLoggedIn} />}
     </div>
   );
 }

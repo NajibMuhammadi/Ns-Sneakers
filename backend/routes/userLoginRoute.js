@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import express from 'express';
 
 import UserController from "../controllers/userController.js";
 import upload from '../multer/upload.js';
@@ -50,7 +51,8 @@ router.post('/upload', controller.checkAuthUser, upload.single('image'), async(r
     res.status(200).json({
         filename: req.file.filename,
         success: true,
-        message: 'Image uploaded successfully'
+        message: 'Image uploaded successfully',
+        image_url: `http://localhost:8085/ns-sneakers/userImage/${req.file.filename}`
     });
 });
 
@@ -58,4 +60,5 @@ router.get('/profileImage', controller.checkAuthUser, controller.getUserImage);
 
 router.get('/logout', controller.logoutUser);
 router.get('/getuser', controller.checkAuthUser, controller.getUserDetails);
+router.use('/userImage', express.static('./config/usersImages'));
 export default router
