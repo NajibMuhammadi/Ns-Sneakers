@@ -143,6 +143,23 @@ const validate = {
             userDb.update({ userId }, { $set: { isAdmin: false } });
 
             next()
+        },
+
+        userInsertProfileImage: async (req, res, next) => {
+            const userId = req.user.userId
+            const user = await userDb.findOne({ userId });
+
+            if (!user) {
+                validateError.success = false;
+                validateError.message = "User not found";
+                validateError.status = 404;
+                return next(validateError)
+            }
+
+            userDb.update({ userId }, { $set: { image: req.file.filename } });
+
+            next();
+        
         }
 
     }

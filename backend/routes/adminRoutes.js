@@ -6,8 +6,9 @@ import AuthController from "../controllers/authController.js";
 const router = Router();
 const controller = new AuthController();
 
-router.get("/allusers", authenticationMiddleware.checkAuthUser, validateMiddleware.user.checkIsAdmin, controller.getAllUser);
+router.get('/allusers', authenticationMiddleware.checkAuthUser, validateMiddleware.user.checkIsAdmin, controller.getAllUser);
 router.put('/admintrue/:id', authenticationMiddleware.checkAuthUser, validateMiddleware.user.insertAdminTrue, controller.insertAdminTrue);
 router.put('/adminfalse/:id', authenticationMiddleware.checkAuthUser, validateMiddleware.user.insertAdminFalse, controller.insertAdminFalse);
+router.get('/getuser', authenticationMiddleware.checkAuthUser, controller.getUserDetails);
 
 export default router
