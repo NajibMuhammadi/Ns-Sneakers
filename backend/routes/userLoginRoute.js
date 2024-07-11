@@ -1,34 +1,13 @@
-import { Router } from 'express';
+/* import { Router } from 'express';
 import express from 'express';
 
 import UserController from "../controllers/userController.js";
+import authenticateMiddleware from '../middleware/authentication.js';
+
 import upload from '../multer/upload.js';
-import {userDb} from '../models/userModels.js';
 
-const router = Router();
-const controller = new UserController;
 
-router.post('/register',
-    controller.registerUser,
-);
-
-router.post('/login',
-    controller.loginUser,
-);
-
-router.get('/profile', controller.checkAuthUser,(req, res) => {
-    res.json({
-        success: true,
-        message: 'Profile accessed successfully.',
-        user: req.user
-    });
-});
-
-router.get('/allusers', controller.checkAuthUser, controller.checkIsAdmin, controller.getAllUsers);
- 
-router.put('/insertadmin/:id', controller.checkAuthUser, controller.checkIsAdmin, controller.insertAdminTrue);
-router.put('/insertadminfalse/:id', controller.checkAuthUser, controller.checkIsAdmin, controller.isertAdminFalse);
-router.post('/upload', controller.checkAuthUser, upload.single('image'), async(req, res) => {
+router.post('/upload', authenticateMiddleware.checkAuthUser, upload.single('image'), async(req, res) => {
     const userId = req.user.userId;
     const user = await userDb.findOne({ userId });
 
@@ -56,9 +35,9 @@ router.post('/upload', controller.checkAuthUser, upload.single('image'), async(r
     });
 });
 
-router.get('/profileImage', controller.checkAuthUser, controller.getUserImage);
+router.get('/profileImage', authenticateMiddleware.checkAuthUser, controller.getUserImage);
 
 router.get('/logout', controller.logoutUser);
-router.get('/getuser', controller.checkAuthUser, controller.getUserDetails);
+router.get('/getuser', authenticateMiddleware.checkAuthUser, controller.getUserDetails);
 router.use('/userImage', express.static('./config/usersImages'));
-export default router
+export default router */

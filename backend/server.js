@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 dotenv.config();
 
-import userLoginRoute from './routes/userLoginRoute.js';
+import authRoutes from './routes/authRoutes.js';
+import adminRoutes from './routes/adminRoutes.js'
 import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
@@ -17,7 +18,8 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/ns-sneakers', userLoginRoute);
+app.use('/ns-sneakers/auth', authRoutes);
+app.use('/ns-sneakers/admin', adminRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);
