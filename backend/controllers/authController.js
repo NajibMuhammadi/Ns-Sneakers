@@ -2,31 +2,11 @@ import { userDb } from "../models/userModels.js";
 
 export default class AuthController {
     registerUser = async (req, res) => {
-        const { userName, firstName, lastName, password, email } = req.body;
-
-        const users = await userDb.find();
-
-        let randomId = Math.random().toString(36).slice(2, 7).toUpperCase();
-        if (users.length >= 1) {
-            while (users.find(user => user.userId === randomId)) {
-                randomId = Math.random().toString(36).slice(2, 7).toUpperCase();
-            }
-        }
-        const newUserToDb = {
-            userName,
-            firstName,
-            lastName,
-            password,
-            email,
-            userId: randomId
-        }
-
-        userDb.insert(newUserToDb);
-
         res.status(201).json({
             success: true,
             message: "User registered",
-            status: 201
+            status: 201,
+            user: req.user
         });
     }
 

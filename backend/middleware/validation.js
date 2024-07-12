@@ -6,22 +6,31 @@ const validate = {
     user: {
         register: async (req, res, next) => {
             const { error } = userSchema.validate(req.body);
-            const { userName, password, confirmPassword, email } = req.body;
+            const users = await userDb.find();
 
-            if (await userDb.findOne({ userName: userName })) {
+            const { userName, firstName, lastName, password, confirmPassword, email } = req.body;
+            
+            let randomId = Math.random().toString(36).slice(2, 7).toUpperCase();
+            if (users.length >= 1) {
+                while (users.find(user => user.userId === randomId)) {
+                    randomId = Math.random().toString(36).slice(2, 7).toUpperCase();
+                }
+            }
+
+            if (users.find(user => user.userName === userName)) {
                 validateError.success = false;
                 validateError.message = "Username already exists";
                 validateError.status = 400;
                 return next(validateError);
             }
-             
-            if (await userDb.findOne({ email: email })) {
+
+            if (users.find(user => user.email === email)) {
                 validateError.success = false;
                 validateError.message = "Email already exists";
                 validateError.status = 400;
                 return next(validateError);
             }
-            
+
             if (error) {
                 validateError.success = false;
                 validateError.message = error.details[0].message;
@@ -35,6 +44,19 @@ const validate = {
                 validateError.status = 400;
                 return next(validateError);
             }
+            
+
+            const newUserToDb = {
+                userName,
+                firstName,
+                lastName,
+                password,
+                email,
+                userId: randomId
+            }
+            userDb.insert(newUserToDb);
+
+            req.user = newUserToDb;
             next();
         },
 
