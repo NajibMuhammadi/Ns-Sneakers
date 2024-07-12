@@ -2,7 +2,7 @@ import { userDb } from "../models/userModels.js";
 
 export default class AuthController {
     registerUser = async (req, res) => {
-        const { userName, firstName, lastName, password, confirmPassword, email } = req.body;
+        const { userName, firstName, lastName, password, email } = req.body;
 
         const users = await userDb.find();
 

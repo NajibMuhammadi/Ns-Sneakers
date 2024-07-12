@@ -64,12 +64,12 @@ const validate = {
             }
 
             const accessToken = jwt.sign({
-                userId: user.userId,
+                _id: user._id,
                 isAdmin: user.isAdmin
             }, process.env.SECRET_KEY, { expiresIn: '10s' });
     
             const refreshToken = jwt.sign({
-                userId: user.userId,
+                _id: user._id,
                 isAdmin: user.isAdmin
             }, process.env.REFRESH_SECRET_KEY);
 
@@ -146,8 +146,8 @@ const validate = {
         },
 
         userInsertProfileImage: async (req, res, next) => {
-            const userId = req.user.userId
-            const user = await userDb.findOne({ userId });
+            const _id = req.user._id;
+            const user = await userDb.findOne({ _id });
 
             if (!user) {
                 validateError.success = false;
@@ -156,16 +156,16 @@ const validate = {
                 return next(validateError)
             }
 
-            userDb.update({ userId }, { $set: { image: req.file.filename } });
+            userDb.update({ _id }, { $set: { image: req.file.filename } });
 
             next();
         
         },
 
         userDetails: async (req, res, next) => {
-            const userId = req.user.userId;
+            const _id = req.user._id;
 
-            const user = await userDb.findOne({ userId })
+            const user = await userDb.findOne({ _id });
 
             if (!user) {
                 validateError.success = false;

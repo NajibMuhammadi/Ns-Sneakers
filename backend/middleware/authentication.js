@@ -21,7 +21,7 @@ const authentication = {
             }
 
             const accessToken = jwt.sign({
-                userId: decoded.userId,
+                _id: decoded._id,
                 isAdmin: decoded.isAdmin
             }, process.env.SECRET_KEY, { expiresIn: '15m' });
 
