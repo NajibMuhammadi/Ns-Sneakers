@@ -12,12 +12,12 @@ function UserProfile({isLoggedIn}) {
     const [imgUrl, setImgUrl] = useState(null);
     useEffect(() => {
         if(isLoggedIn) {
-            axios.get('http://localhost:8085/ns-sneakers/getuser', {
+            axios.get('http://localhost:8085/ns-sneakers/auth/userdetails', {
                 withCredentials: true
             }).then(res => {
                 setfirstname(res.data.user.firstName)
                 setLastname(res.data.user.lastName)
-                const imageUrl = `http://localhost:8085/ns-sneakers/userImage/${res.data.user.image}`;
+                const imageUrl = `http://localhost:8085/ns-sneakers/auth/userImage/${res.data.user.image}`;
                 setImgUrl(imageUrl);
                 console.log(imageUrl)
             }).catch(err => {

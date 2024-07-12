@@ -3,6 +3,9 @@ import express from 'express';
 import validateMiddleware from "../middleware/validation.js";
 import AuthController from "../controllers/authController.js";
 import authentication from "../middleware/authentication.js";
+
+import {userDb} from '../models/userModels.js'
+
 import upload from '../multer/upload.js'
 
 const router = Router();
@@ -10,15 +13,11 @@ const controller = new AuthController();
 
 router.post('/register', validateMiddleware.user.register, controller.registerUser);
 router.post('/login', validateMiddleware.user.login, controller.loginUser);
-router.get('/getuserdetails', authentication.checkAuthUser, controller.getUserDetails);
-router.use('/userImage', express.static('/config/usersImages'));
-router.post('/upload', authentication.checkAuthUser, upload.single('image'), validateMiddleware.user.userInsertProfileImage, controller.userInsertProfileImage, (req, res) => {
-    res.json({
-        success: true,
-        message: 'Image uploaded successfully',
-        image_url: `http://localhost:8085/ns-sneakers/userImage/${req.file.filename}`
-    })
-});
+router.get('/userdetails', authentication.checkAuthUser, validateMiddleware.user.userDetails, controller.getUserDetails);
+router.get('/logout', authentication.checkAuthUser, validateMiddleware.user.userLogOut, controller.logout);
+router.post('/upload', authentication.checkAuthUser, upload.single('image'), validateMiddleware.user.userInsertProfileImage, controller.userInsertProfileImage);
+router.use('/userImage', express.static('./config/usersImages'));
+
 
 
 export default router;

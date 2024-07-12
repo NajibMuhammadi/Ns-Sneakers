@@ -14,7 +14,7 @@ function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => { 
-        axios.get('http://localhost:8085/ns-sneakers/profile', {
+        axios.get('http://localhost:8085/ns-sneakers/auth/userdetails', {
             withCredentials: true
         }).then(res => {
             setIsLoggedIn(true)
@@ -38,7 +38,7 @@ function Header() {
     }
 
     const handleLogout = () => {
-        axios.get('http://localhost:8085/ns-sneakers/logout', {
+        axios.get('http://localhost:8085/ns-sneakers/auth/logout', {
             withCredentials: true
         }).then(res => {
             if (res.data.success) {

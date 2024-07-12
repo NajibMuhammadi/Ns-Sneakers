@@ -160,8 +160,33 @@ const validate = {
 
             next();
         
-        }
+        },
 
+        userDetails: async (req, res, next) => {
+            const userId = req.user.userId;
+
+            const user = await userDb.findOne({ userId })
+
+            if (!user) {
+                validateError.success = false;
+                validateError.message = "User not found";
+                validateError.status = 404;
+                return next(validateError);
+            }
+
+            user.firstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
+            user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1);
+
+            req.user = user;
+
+            next();
+        },
+
+        userLogOut: async (req, res, next) => {
+            res.clearCookie('token');
+            res.clearCookie('refreshToken');
+            next();
+        }
     }
 }
 
