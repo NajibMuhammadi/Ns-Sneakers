@@ -41,7 +41,7 @@ function Register() {
         shakeContainer();
         
 
-        axios.post('http://localhost:8085/ns-sneakers/register', {
+        axios.post('http://localhost:8085/ns-sneakers/auth/register', {
             userName: username,
             email: email,
             password: password,

@@ -18,7 +18,7 @@ function Login() {
         setShakeUserNameOrEmail(false);
         setShakePassword(false);
 
-        axios.post('http://localhost:8085/ns-sneakers/login', {
+        axios.post('http://localhost:8085/ns-sneakers/auth/login', {
             userNameOrEmail: usernameOrEmail,
             password: password
         }, {
