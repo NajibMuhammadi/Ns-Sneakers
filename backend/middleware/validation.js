@@ -6,13 +6,6 @@ const validate = {
     user: {
         register: async (req, res, next) => {
             const { error } = userSchema.validate(req.body);
-            
-            if (error) {
-                validateError.success = false;
-                validateError.message = error.details[0].message;
-                validateError.status = 400;
-                return next(validateError);
-            }
             const { userName, password, confirmPassword, email } = req.body;
 
             if (await userDb.findOne({ userName: userName })) {
@@ -25,6 +18,13 @@ const validate = {
             if (await userDb.findOne({ email: email })) {
                 validateError.success = false;
                 validateError.message = "Email already exists";
+                validateError.status = 400;
+                return next(validateError);
+            }
+            
+            if (error) {
+                validateError.success = false;
+                validateError.message = error.details[0].message;
                 validateError.status = 400;
                 return next(validateError);
             }
@@ -173,6 +173,8 @@ const validate = {
                 validateError.status = 404;
                 return next(validateError);
             }
+
+            user.image = user.image || `person.svg`;
 
             user.firstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1);
             user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1);
