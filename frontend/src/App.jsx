@@ -5,20 +5,40 @@ import Collections from './pages/collections/Collections'
 import Footer from './comp/footerComp/footer/Footer'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
-import UserProfile from './pages/userProfile/UserProfile'
+import UserEditProfile from './pages/userEditProfile/UserEditProfile'
 
 function App() {
   return (
     <Router>
       <div className='app'>
-        <Header />
         <Routes>
-          <Route path='/' element={<Collections />} />
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/register' element={<Register />}></Route>
-          <Route path='/login' element={<UserProfile/>}></Route>
+          <Route path='/' element={
+            <>
+              <Header isEditProfilePage={false} />
+              <Collections />
+              <Footer />
+            </>
+          } />
+          <Route path='/login' element={
+            <>
+              <Header isEditProfilePage={false}/>
+              <Login />
+            </>
+          } />
+          <Route path='/register' element={
+            <>
+              <Header isEditProfilePage={false}/>
+              <Register />
+            </>
+          } />
+          <Route path='/men' element={
+            <>
+              <Header isEditProfilePage={true}/>
+              <UserEditProfile />
+              <Footer isEditProfilePage={true}/>
+            </>
+            }/> 
         </Routes>
-        <Footer />
       </div>
     </Router>
   )

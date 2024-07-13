@@ -4,11 +4,11 @@ import NavItems from "../navitems/NavItems"
 import './nav.css';
 
 
-function Nav() {
+function Nav({showNavItems}) {
   return (
     <div className='header__nav'>
           <Logo />
-          <NavItems/>
+         {showNavItems && <NavItems/>}
     </div>
   )
 }

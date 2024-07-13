@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; 
 import axios from "axios";
 
-function Header() { 
+function Header({isEditProfilePage}) { 
     const [userInput, setUserInput] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -54,23 +54,25 @@ function Header() {
             {isLoading && <div className="loading__overlay">
                 <div className="loading__spinner"></div>
             </div>}
-            <Nav />
+            <Nav showNavItems={!isEditProfilePage} />
             <div className="header__cart-container">
-                <div className="header__search-container">
-                    <input
-                        type="text"
-                        className="header__search-input"
-                        placeholder="Search..."
-                        onChange={handleSearch}
-                        value={userInput}
-                    />
-                    <span className="header__search-span"><PiLineVertical/></span>
-                    <IoSearchSharp
-                        className="header__search-icon"
-                        onClick={handleBtnClick}
-                    />
-                </div> 
-                <Cart />
+                {!isEditProfilePage && (
+                    <div className="header__search-container">
+                        <input
+                            type="text"
+                            className="header__search-input"
+                            placeholder="Search..."
+                            onChange={handleSearch}
+                            value={userInput}
+                        />
+                        <span className="header__search-span"><PiLineVertical /></span>
+                        <IoSearchSharp
+                            className="header__search-icon"
+                            onClick={handleBtnClick}
+                        />
+                    </div>
+                )}
+                {!isEditProfilePage && <Cart />}
                 {isLoggedIn ? (
                     <Link to='/'>
                         <button className="header__profile-btn" onClick={handleLogout}>Logout</button>
@@ -80,7 +82,7 @@ function Header() {
                         <button className="header__profile-btn">Login</button>
                     </Link>
                 )}
-                <ProfileImg isLoggedIn={isLoggedIn} />
+                {<ProfileImg isLoggedIn={isLoggedIn} />}
             </div>
         </div>
     )

@@ -3,16 +3,18 @@ import CompanyFooter from '../companyFooter/CompanyFooter'
 import ProductFooter from '../productFooter/ProductFooter'
 import './footer.css'
 
-function Footer() {
+function Footer({isEditProfilePage}) {
     return (
-        <div className='footer'>
-            <div className='footer__content'>
-                <ProductFooter />
-                <CompanyFooter />
-                <CategoryFooter />
-            </div>  
-        </div>
-    )
+        !isEditProfilePage && (
+            <div className='footer'>
+                <div className='footer__content'>
+                    <ProductFooter />
+                    <CompanyFooter />
+                    <CategoryFooter />
+                </div>
+            </div>
+        )
+    );
 }
 
 export default Footer
