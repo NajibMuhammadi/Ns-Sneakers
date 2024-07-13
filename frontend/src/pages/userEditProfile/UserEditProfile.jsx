@@ -1,9 +1,10 @@
 import './userEditProfile.css';
+import SideBar from '../../comp/sidebarComp/SideBar';
 
-function UserEditProfile() {
+function UserEditProfile({isLoggedIn}) {
   return (
       <div className='edit__profile-main'>
-          <h1>hej</h1>
+          <SideBar isLoggedIn={isLoggedIn}/>
       </div>
   )
 }

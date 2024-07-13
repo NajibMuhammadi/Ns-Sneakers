@@ -9,15 +9,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; 
 import axios from "axios";
 
-function Header({isEditProfilePage}) { 
+function Header({isEditProfilePage, isLoggedIn, setIsLoggedIn}) { 
     const [userInput, setUserInput] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => { 
         axios.get('http://localhost:8085/ns-sneakers/auth/userdetails', {
             withCredentials: true
         }).then(res => {
-            setIsLoggedIn(true)
+           setIsLoggedIn(true)
         }).catch(err => {
             console.log(err)
         }).finally(() => {
@@ -26,7 +25,7 @@ function Header({isEditProfilePage}) {
             }, 1000)
         })
         
-    }), [userInput];
+    }), [userInput, setIsLoggedIn];
 
     const handleSearch = (e) => {
         setUserInput(e.target.value);
@@ -82,7 +81,7 @@ function Header({isEditProfilePage}) {
                         <button className="header__profile-btn">Login</button>
                     </Link>
                 )}
-                {<ProfileImg isLoggedIn={isLoggedIn} setIsLoading={setIsLoading} />}
+                {<ProfileImg isLoggedIn={isLoggedIn} setIsLoading={setIsLoading} isEditProfilePage={isEditProfilePage} />}
             </div>
         </div>
     )

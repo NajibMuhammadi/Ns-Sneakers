@@ -1,6 +1,6 @@
 import './userProfile.css';
 
-import {User, GreaterThan, Gear, SignIn, SignOut,} from "@phosphor-icons/react";
+import {User, GreaterThan, Gear} from "@phosphor-icons/react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';

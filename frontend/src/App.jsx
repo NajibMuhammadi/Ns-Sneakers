@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import Header from './comp/headerComp/header/Header'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Collections from './pages/collections/Collections'
@@ -8,13 +9,14 @@ import Register from './pages/register/Register'
 import UserEditProfile from './pages/userEditProfile/UserEditProfile'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <Router>
       <div className='app'>
         <Routes>
           <Route path='/' element={
             <>
-              <Header isEditProfilePage={false} />
+              <Header isEditProfilePage={false} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>
               <Collections />
               <Footer />
             </>
@@ -33,8 +35,8 @@ function App() {
           } />
           <Route path='/editprofile' element={
             <>
-              <Header isEditProfilePage={true}/>
-              <UserEditProfile />
+              <Header isEditProfilePage={true} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+              <UserEditProfile isLoggedIn={isLoggedIn}/>
               <Footer isEditProfilePage={true}/>
             </>
             }/> 

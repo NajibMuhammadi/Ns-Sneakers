@@ -4,7 +4,7 @@ import axios from 'axios';
 import { User } from "@phosphor-icons/react";
 import UserProfile from '../../../pages/userProfile/UserProfile';
 
-const ProfileImg = ({isLoggedIn}) => {
+const ProfileImg = ({isLoggedIn, isEditProfilePage}) => {
   const [imgUrl, setImgUrl] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
   const profileRef = useRef(null);
@@ -25,9 +25,9 @@ const ProfileImg = ({isLoggedIn}) => {
   const showProfileHandler = () => {
     if (!isLoggedIn) {
       window.location.href = '/login';
-    } else {
+    } else if (!isEditProfilePage) {
       setShowProfile(!showProfile);
-    }
+  }
   }
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const ProfileImg = ({isLoggedIn}) => {
       ) : (
           <User className='header__profile-img' />
       )}
-      {isLoggedIn && (showProfile && <UserProfile isLoggedIn={isLoggedIn} />)}
+      {isLoggedIn && !isEditProfilePage && (showProfile && <UserProfile isLoggedIn={isLoggedIn} />)}
     </div>
   );
 }

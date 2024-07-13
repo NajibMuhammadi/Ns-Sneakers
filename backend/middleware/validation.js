@@ -186,8 +186,9 @@ const validate = {
 
         userDetails: async (req, res, next) => {
             const _id = req.user._id;
-
             const user = await userDb.findOne({ _id });
+
+            _id && delete user.password;
 
             if (!user) {
                 validateError.success = false;
