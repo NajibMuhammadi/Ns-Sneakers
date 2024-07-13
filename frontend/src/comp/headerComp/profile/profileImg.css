@@ -5,3 +5,6 @@
     object-fit: cover;
     cursor: pointer;
 }
+.header__profile-img:hover {
+    border : 2px solid var(--Orange);
+}

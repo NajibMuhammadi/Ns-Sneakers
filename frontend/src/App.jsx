@@ -31,7 +31,7 @@ function App() {
               <Register />
             </>
           } />
-          <Route path='/men' element={
+          <Route path='/editprofile' element={
             <>
               <Header isEditProfilePage={true}/>
               <UserEditProfile />

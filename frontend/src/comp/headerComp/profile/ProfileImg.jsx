@@ -23,7 +23,11 @@ const ProfileImg = ({isLoggedIn}) => {
   }, [isLoggedIn]);
   
   const showProfileHandler = () => {
-    setShowProfile(!showProfile);
+    if (!isLoggedIn) {
+      window.location.href = '/login';
+    } else {
+      setShowProfile(!showProfile);
+    }
   }
 
   useEffect(() => {
@@ -46,7 +50,7 @@ const ProfileImg = ({isLoggedIn}) => {
       ) : (
           <User className='header__profile-img' />
       )}
-      {showProfile && <UserProfile isLoggedIn={isLoggedIn} />}
+      {isLoggedIn && (showProfile && <UserProfile isLoggedIn={isLoggedIn} />)}
     </div>
   );
 }

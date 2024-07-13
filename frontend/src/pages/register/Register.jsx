@@ -129,6 +129,7 @@ function Register() {
                             value={firstname}
                             name='firstname'
                             onChange={handleInputChange}
+                            required
                         />
                         <span className='form__input-span'>Firstname</span>
                     </label>
@@ -139,7 +140,7 @@ function Register() {
                             name='lastname'
                             value={lastname}
                             onChange={handleInputChange}
-
+                            required
                         />
                         <span className='form__input-span'>Lastname</span>
                     </label>
@@ -151,6 +152,7 @@ function Register() {
                         value={username}
                         name='username'
                         onChange={handleInputChange}
+                        required
                     />
                     <span className='form__input-span'>Username</span>
                 </label>
@@ -161,6 +163,7 @@ function Register() {
                         value={email}
                         name='email'
                         onChange={handleInputChange}
+                        required
                     />
                     <span className='form__input-span'>Email</span>
                 </label>
@@ -171,6 +174,7 @@ function Register() {
                         value={password}
                         name='password'
                         onChange={handleInputChange}
+                        required
                     /> }
                     <span className='form__input-span'>Password</span>
                 </label>
@@ -182,6 +186,7 @@ function Register() {
                         value={confirmPassword} 
                         name='confirmPassword'
                         onChange={handleInputChange}
+                        required
                     />
                     <span className='form__input-span'>Confirm Password</span>
                 </label>

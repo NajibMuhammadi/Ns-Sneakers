@@ -82,7 +82,7 @@ function Header({isEditProfilePage}) {
                         <button className="header__profile-btn">Login</button>
                     </Link>
                 )}
-                {<ProfileImg isLoggedIn={isLoggedIn} />}
+                {<ProfileImg isLoggedIn={isLoggedIn} setIsLoading={setIsLoading} />}
             </div>
         </div>
     )
