@@ -169,18 +169,20 @@ const validate = {
 
         userInsertProfileImage: async (req, res, next) => {
             const _id = req.user._id;
-            const user = await userDb.findOne({ _id });
-
-            if (!user) {
-                validateError.success = false;
-                validateError.message = "User not found";
-                validateError.status = 404;
-                return next(validateError)
+            try {
+                const user = await userDb.findOne({ _id });
+                
+                if (!user) {
+                return res.status(404).json({ success: false, message: "User not found" });
             }
 
-            userDb.update({ _id }, { $set: { image: req.file.filename } });
+            await userDb.updateOne({ _id }, { $set: { image: req.file.filename } });
 
             next();
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ success: false, message: "Internal server error" });
+        }
         
         },
 

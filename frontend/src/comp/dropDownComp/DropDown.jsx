@@ -40,7 +40,7 @@ function DropDown({isLoggedIn}) {
                 {isLoggedIn && (
                     <>
                         <hr className='user__hr'/>
-                        <Link to='/editprofile' className='user__menu-link'>
+                        <Link to='/editprofile/account' className='user__menu-link'>
                             <User size={40} weight="fill" fill='grey' className='user__icon' />
                             <p className='user__link-subtitle'>Edit Profile</p>
                             <GreaterThan size={32} />
