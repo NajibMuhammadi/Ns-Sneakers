@@ -8,14 +8,29 @@
     background-color: var(--White);
     height: 100vh;
 }
-.sidebar__item{
+.sidebar__title{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+.sidebar__item-link{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    text-decoration: none;
+}
+.sidebar__item{
     margin: 0 2rem;
     padding: .3rem 1rem;
     border-radius: 6px;
     cursor: pointer;
     background-color: #f6f6f6;
-    gap: 2rem;
+}
+.sidebar__item-title{
+    color: #999;
+    letter-spacing: 1px; 
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
 }

@@ -1,35 +1,28 @@
+import { Link } from 'react-router-dom'
 import './sideBar.css'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { PencilSimple } from '@phosphor-icons/react'
+import { User, EnvelopeSimpleOpen, Password } from '@phosphor-icons/react'
 
-function SideBar({isLoggedIn}) {
-    const [imgUrl, setImgUrl] = useState(null);
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    useEffect(() => {
-        if (isLoggedIn) {
-            axios.get('http://localhost:8085/ns-sneakers/auth/userdetails', {
-                withCredentials: true
-            }).then(res => {
-                const imageUrl = `http://localhost:8085/ns-sneakers/auth/userImage/${res.data.user.image}`;
-                setImgUrl(imageUrl);
-                setFirstname(res.data.user.firstName);
-                setLastname(res.data.user.lastName);
-                setEmail(res.data.user.email);
-                setUsername(res.data.user.userName);
-            }).catch(err => {
-                console.log(err);
-            });
-        }
-    }, [isLoggedIn]);
+function SideBar() {
     return (
         <div className="sidebar">
+            <h1 className='sidebar__title'>Settings</h1>
             <div className='sidebar__item'>
-                <PencilSimple size={32} />
-                <h4 className='sidebar__title'>Edit Profile</h4>
+                <Link to='/login' className='sidebar__item-link'>
+                    <User size={32} fill='black'/>
+                    <h4 className='sidebar__item-title'>Account</h4>
+                </Link>
+            </div>
+            <div className='sidebar__item'>
+                <Link to='/login' className='sidebar__item-link'>
+                    <EnvelopeSimpleOpen size={32} fill='black'/>
+                    <h4 className='sidebar__item-title'>Email</h4>
+                </Link>
+            </div>
+            <div className='sidebar__item'>
+                <Link to='/login' className='sidebar__item-link'>
+                    <Password size={32} fill='black'/>
+                    <h4 className='sidebar__item-title'>Password</h4>
+                </Link>
             </div>
         </div>
   )

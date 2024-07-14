@@ -2,11 +2,11 @@ import './profileImg.css';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { User } from "@phosphor-icons/react";
-import UserProfile from '../../../pages/userProfile/UserProfile';
+import DropDown from '../../dropDownComp/DropDown';
 
 const ProfileImg = ({isLoggedIn, isEditProfilePage}) => {
   const [imgUrl, setImgUrl] = useState(null);
-  const [showProfile, setShowProfile] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
   const profileRef = useRef(null);
   
   useEffect(() => {
@@ -22,35 +22,35 @@ const ProfileImg = ({isLoggedIn, isEditProfilePage}) => {
     }
   }, [isLoggedIn]);
   
-  const showProfileHandler = () => {
+  const showDropDownHandler = () => {
     if (!isLoggedIn) {
       window.location.href = '/login';
     } else if (!isEditProfilePage) {
-      setShowProfile(!showProfile);
+      setShowDropDown(!showDropDown);
   }
   }
 
   useEffect(() => {
     const pageClickEvent = (e) => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setShowProfile(false);
+        setShowDropDown(false);
       }
     };
-    if (showProfile) {
+    if (showDropDown) {
       window.addEventListener('click', pageClickEvent);
     }
     return () => {
       window.removeEventListener('click', pageClickEvent);
     }
-  }, [showProfile]);
+  }, [showDropDown]);
   return (
-    <div className="profileImg" onClick={showProfileHandler} ref={profileRef}>
+    <div className="profileImg" onClick={showDropDownHandler} ref={profileRef}>
        {isLoggedIn ? (
         <img className='header__profile-img' src={imgUrl} alt="profile" />
       ) : (
           <User className='header__profile-img' />
       )}
-      {isLoggedIn && !isEditProfilePage && (showProfile && <UserProfile isLoggedIn={isLoggedIn} />)}
+      {isLoggedIn && !isEditProfilePage && (showDropDown && <DropDown isLoggedIn={isLoggedIn} />)}
     </div>
   );
 }

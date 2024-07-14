@@ -1,4 +1,4 @@
-import './userProfile.css';
+import './dropDown.css';
 
 import {User, GreaterThan, Gear} from "@phosphor-icons/react";
 import { Link } from 'react-router-dom';
@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 
-function UserProfile({isLoggedIn}) {
+function DropDown({isLoggedIn}) {
     const [firstname, setfirstname] = useState('');
     const [Lastname, setLastname] = useState('');
     const [imgUrl, setImgUrl] = useState(null);
@@ -37,9 +37,9 @@ function UserProfile({isLoggedIn}) {
                         </>
                     )}
                 </div>
-                {isLoggedIn && (<hr className='user__hr' />)}
                 {isLoggedIn && (
                     <>
+                        <hr className='user__hr'/>
                         <Link to='/editprofile' className='user__menu-link'>
                             <User size={40} weight="fill" fill='grey' className='user__icon' />
                             <p className='user__link-subtitle'>Edit Profile</p>
@@ -60,4 +60,4 @@ function UserProfile({isLoggedIn}) {
     )
 }
 
-export default UserProfile
+export default DropDown
