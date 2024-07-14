@@ -33,7 +33,7 @@ function App() {
               <Register />
             </>
           } />
-          <Route path='/editprofile' element={
+          <Route path='/editprofile/*' element={
             <>
               <Header isEditProfilePage={true} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
               <UserEditProfile isLoggedIn={isLoggedIn}/>

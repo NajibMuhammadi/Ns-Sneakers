@@ -2,12 +2,6 @@
     background-color: #e5e5e5;
     display: flex;
 }
-.edit__profile-info{
-    width: 70%;
-    margin: 0 auto;
-}
-.edit__profile-title{
-    text-align: center;
-    font-size: 2rem;
-    margin: 1rem;
+.edit__profile{
+    display: flex;
 }
